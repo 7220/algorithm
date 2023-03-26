@@ -1,0 +1,10 @@
+const a = (require('fs').readFileSync('/dev/stdin')+'').trim()
+const coin = [500, 100, 50, 10, 5, 1]
+let count = 0
+let ex = 1000 - a
+
+for (let result of coin) {
+  count += Math.floor(ex / result)
+  ex %= result
+}
+console.log(count)

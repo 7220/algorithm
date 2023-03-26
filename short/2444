@@ -1,0 +1,69 @@
+// me
+
+// const a = +(require('fs').readFileSync('./input.txt')+'')
+
+const readline = require('readline')
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+rl.on('line', (input) => {
+  const N = Number(input)
+
+  // 첫째 줄부터 N번째 줄까지 출력
+  for (let i = 1; i <= N; i++) {
+    let stars = ''
+    let spaces = ''
+
+    // 공백 개수 계산
+    for (let j = 1; j <= N - i; j++) {
+      spaces += ' '
+    }
+
+    // 별 개수 계산
+    for (let j = 1; j <= 2 * i - 1; j++) {
+      stars += '*'
+    }
+
+    console.log(spaces + stars)
+  }
+
+  // N+1번째 줄부터 2N-1번째 줄까지 출력
+  for (let i = N + 1; i <= 2 * N - 1; i++) {
+    let stars = ''
+    let spaces = ''
+
+    // 공백 개수 계산
+    for (let j = 1; j <= i - N; j++) {
+      spaces += ' '
+    }
+
+    // 별 개수 계산
+    for (let j = 1; j <= 2 * (2 * N - i) - 1; j++) {
+      stars += '*'
+    }
+
+    console.log(spaces + stars)
+  }
+
+  rl.close()
+})
+
+
+let N1 = +`${require('fs').readFileSync(0)}`.trim()
+let [x, y] = [N - 1, 1]
+for (let i = 1; i < 2 * N; i++) {
+  console.log(' '.repeat(x) + '*'.repeat(y))
+  x += i < N ? -1 : 1
+  y += i < N ? 2 : -2
+}
+
+let N = +require("fs").readFileSync("dev/stdin");
+for (let i = 1; i < N; i++) {
+  console.log(" ".repeat(N - i) + "*".repeat(i + (i - 1)));
+}
+for (let j = N; j > 0; j--) {
+  console.log(" ".repeat(N - j) + "*".repeat(j + (j - 1)));
+}
