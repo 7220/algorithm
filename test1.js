@@ -1,12 +1,11 @@
-const a = (require('fs').readFileSync('./input.txt')+'').trim().split('\r\n')
-const b = a[1].split(' ').map(Number)
-const c = a[2].split(' ').map(Number)
-let cost = 0
-let min = c[0]
-for (let i = 0; i < +a[0] - 1; i++) {
-  if (c[i] < min) min = c[i]
-  cost += min * b[i]
+const a = (require('fs').readFileSync('input.txt')+'').trim().split('\r\n')
+const [n, k] = a.shift().split(' ').map(Number)
+const jewel = []
+const b = []
+for (let i = 0; i < n; i++) {
+  jewel.push(a[i].split(' ').map(Number))
 }
-console.log(cost)
-
-
+for (let i = n; i < n + k; i++) {
+  b.push(+a[i])
+}
+console.log(jewel, b)

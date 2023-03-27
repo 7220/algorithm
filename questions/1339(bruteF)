@@ -1,0 +1,19 @@
+const a = (require('fs').readFileSync('/dev/stdin')+'').trim().split('\n')
+const words = a.slice(1)
+const alpha = new Array(26).fill(0)
+let sum = 0
+let maxN = 9
+for (let i = 0; i < a[0]; i++) {
+  let word = words[i]
+  for (let j = 0; j < word.length; j++) {
+    let charCode = word.charCodeAt(j) - 65
+    alpha[charCode] += Math.pow(10, word.length - j - 1)
+  }
+}
+alpha.sort((a, b) => b - a)
+for (let i = 0; i < 26; i++) {
+  if (alpha[i] === 0) break
+  sum += alpha[i] * maxN
+  maxN--
+}
+console.log(sum)

@@ -1,0 +1,16 @@
+const [n, m] = (require('fs').readFileSync('/dev/stdin')+'').trim().split(' ').map(Number)
+const dp = Array.from(Array(10001), () => new Array(101).fill(0))
+const solve = (n, m) => {
+  if (n < m) [n, m] = [m, n]
+  if (dp[n][m] > 0) return dp[n][m]
+  if (n % m === 0) return dp[n][m] = n / m
+  let min = n
+  for (let i = 1; i <= n / 2; i++) {
+    min = Math.min(min, solve(i, m) + solve(n - i, m))
+  }
+  for (let i = 1; i <= m / 2; i++) {
+    min = Math.min(min, solve(n, i) + solve(n, m - i))
+  }
+  return dp[n][m] = min
+}
+console.log(solve(n, m))
