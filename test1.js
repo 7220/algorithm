@@ -1,11 +1,16 @@
 const a = (require('fs').readFileSync('input.txt')+'').trim().split('\r\n')
-const [n, k] = a.shift().split(' ').map(Number)
-const jewel = []
-const b = []
-for (let i = 0; i < n; i++) {
-  jewel.push(a[i].split(' ').map(Number))
+let sum = 0
+let o = 0
+for (let i = 1; i <= +a[0]; i++) {
+  const b = a[i].split('')
+  for (let j = 0; j < b.length; j++ ) {
+    if (b[j] === 'O') {
+      o++
+      sum += o
+    } else {
+      o = 0
+    }
+  }
+  console.log(sum)
+  sum = 0
 }
-for (let i = n; i < n + k; i++) {
-  b.push(+a[i])
-}
-console.log(jewel, b)
