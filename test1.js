@@ -1,16 +1,25 @@
 const a = (require('fs').readFileSync('input.txt')+'').trim().split('\r\n')
-const [n, m] = a[0].split(' ').map(Number)
-const arr = a[1].split(' ').map(Number)
-const b = [0]
+const [n, m] = a[0].split(' ').map(Number);
+const graph = a.slice(1).map(row => row.split('').map(Number))
 
-for (let i = 1; i <= n; i++) {
-  b[i] = b[i - 1] + arr[i - 1]
+console.log(graph)
+
+const dx = [1, -1, 0, 0]
+const dy = [0, 0, 1, -1]
+
+const bfs = (x, y) => {
+  const queue = [[x, y]]
+  while (queue.length) {
+    const [x, y] = queue.shift();
+    for (let i = 0; i < 4; i++) {
+      const nx = x + dx[i]
+      const ny = y + dy[i]
+      if (nx >= 0 && nx < n && ny >= 0 && ny < m && graph[nx][ny] === 1) {
+        queue.push([nx, ny])
+        graph[nx][ny] = graph[x][y] + 1
+      }
+    }
+  }
+  return graph[n - 1][m - 1]
 }
-
-let str = ''
-
-for (let i = 0; i < m; i++) {
-  const [s, e] = a[i + 2].split(' ').map(Number)
-  str += `${b[e] - b[s - 1]}\n`
-}
-console.log(str)
+console.log(bfs(0, 0))
